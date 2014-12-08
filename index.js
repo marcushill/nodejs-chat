@@ -15,7 +15,7 @@ app.engine('html', cons.handlebars);
 
 // set .html as the default extension 
 app.set('view engine', 'html');
-app.set('views', __dirname + '\\views');
+app.set('views', __dirname + '/views');
 
 app.use('/static', express.static(root));
 
@@ -121,6 +121,6 @@ function get_rooms_by_username(username){
 }
 
 
-http.listen(80, function () {
+http.listen(3000, function () {
     console.log('listening on *:80');
 });
