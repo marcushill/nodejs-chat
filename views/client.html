@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Test Chat</title>
+    <style>
+        html,
+        body {
+            height: 100%
+        }
+        .main-chat {
+            height: 90% !important;
+            overflow: auto;
+        }
+        .input-row {
+            height: 5%;
+            padding-top: 5px;
+            padding-bottom: 0px;
+        }
+        .container-fluid {
+            height: 100%;
+        }
+        .main-row {
+            height: 95%;
+        }
+        .header-row {
+            height: 5%;
+        }
+        .hidden {
+            display: none;
+        }
+        .full-height {
+            height: 100%;
+        }
+        .well-sm.anchor-bottom {
+            margin-bottom: 0px;
+            margin-top: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid" id="overlay">
+        <div class="row" style="min-height:20px">
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                <form class="form-horizontal" id="login_form">
+                    <div class="well well-lg">
+                        <div class="form-group">
+                            <label for="username" class="col-lg-2 control-label">Username:</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="username" placeholder="Username" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="first-room" class="col-lg-2 control-label">Room:</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="first-room" placeholder="Room" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button class="btn btn-default">Cancel</button>
+                            <input type="submit" class="btn btn-primary" value="Enter Chat">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid hidden" id="chat">
+        <div class="row header-row">
+        </div>
+        <div class="row main-row" id="main-chat">
+        </div>
+        <div class="row footer-row">
+            <div class="col-md-4 col-lg-2">
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/handlebars.runtime.js"></script>
+    <script src="/static/js/templates.js"></script>
+    <script src="/static/js/underscore.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js/chat.js"></script>
+    <script src="/static/js/Tabs.js"></script>
+    <script>
+        $('#login_form').submit(function (e) {
+            var userdata = {
+                'username': $('#username').val()
+            };
+            var opts = {
+                div: $('#main-chat'),
+                success: function (success) {
+                    $('#overlay').addClass('hidden');
+                    $('#chat').removeClass('hidden');
+                },
+                room: $('#first-room').val()
+            };
+            var chat = new SocketChat(userdata, opts);
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+
+</html>
