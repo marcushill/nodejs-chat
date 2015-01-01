@@ -57,7 +57,7 @@ define(['jquery', 'underscore', 'augment', 'app/templates', 'app/tabs', 'bootstr
             };
 
             this.addMessage = function (msg) {
-                if(!this.active && parseInt(this.badge) < 100){
+                if(!this.active && (parseInt(this.badge) || 0) < 100){
                     this.badge += 1;
                 }
                 var item = $('<li></li>', {
@@ -74,6 +74,11 @@ define(['jquery', 'underscore', 'augment', 'app/templates', 'app/tabs', 'bootstr
                 uber.close.call(this);
                 this.content.remove();
                 this.room.leave();
+            };
+
+            this.activate = function () {
+                uber.activate.call(this);
+                this.badge = "";
             };
         });
 

@@ -29,6 +29,10 @@ define(['jquery', 'underscore', 'augment', 'EventEmitter', 'app/templates', 'boo
                 this.list.on('show.bs.tab', 'a[data-toggle="tab"]', this, function (e) {
                     var id = $(this).data('id');
                     var manager = e.data;
+                    if(e.relatedTarget) {
+                        var prevId = $(e.relatedTarget).data('id');
+                        manager.tabs[prevId].deactivate();
+                    }
                     manager.tabs[id].activate();
                 });
                 
