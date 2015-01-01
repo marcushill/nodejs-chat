@@ -19,7 +19,7 @@ app.use('/static', express.static(root));
 
 
 app.get('/', function (req, res) {
-    res.render('client1');
+    res.render('client');
 });
 
 
